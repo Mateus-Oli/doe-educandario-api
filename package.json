@@ -1,0 +1,27 @@
+{
+  "name": "cupom-bot",
+  "version": "0.1.0",
+  "description": "Versão correta do BOT",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "keywords": [
+    "BOT",
+    "Phantom",
+    "Cupom"
+  ],
+  "author": "Mateus Oliveira Carvalho",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.0",
+    "body-parser": "^1.16.0",
+    "express": "^4.14.0",
+    "express-ws": "^2.0.0",
+    "nodemailer": "^2.7.2",
+    "nodemon": "^1.11.0",
+    "objection": "^0.6.2",
+    "phantom": "^4.0.0",
+    "selenium-webdriver": "^3.0.1"
+  }
+}

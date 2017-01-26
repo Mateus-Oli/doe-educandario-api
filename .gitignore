@@ -1,0 +1,5 @@
+# Bibliotecas Externas
+node_modules/
+
+# Logs da Aplicação
+*.log
