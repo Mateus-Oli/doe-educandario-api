@@ -4,6 +4,9 @@
   "description": "Versão correta do BOT",
   "main": "index.js",
   "scripts": {
+    "migration": "node migration",
+    "drop": "node migration/drop",
+    "seed": "node migration/seed",
     "start": "nodemon index.js"
   },
   "keywords": [
@@ -18,9 +21,11 @@
     "body-parser": "^1.16.0",
     "express": "^4.14.0",
     "express-ws": "^2.0.0",
+    "knex": "^0.12.6",
     "nodemailer": "^2.7.2",
     "nodemon": "^1.11.0",
     "objection": "^0.6.2",
+    "pg": "^6.1.2",
     "phantom": "^4.0.0",
     "selenium-webdriver": "^3.0.1"
   }

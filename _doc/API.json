@@ -1,0 +1,296 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Cupom API",
+		"_postman_id": "d02bdf6f-406a-7e35-866a-e8b69da07dfa",
+		"description": "Requisições da API atualizada do projeto de cadastro de cupons fiscais.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "API",
+			"description": "Requisições Relacionadas ao Aplicativo",
+			"item": [
+				{
+					"name": "Cupom",
+					"request": {
+						"url": "{{API}}/coupon",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "coo",
+									"value": "123456",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "cnpj",
+									"value": "82407206000103",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "date",
+									"value": "2017-10-22",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "total",
+									"value": "22.10",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": "Inseire Cupons Fiscais no Banco de Dados"
+					},
+					"response": []
+				},
+				{
+					"name": "QRCode",
+					"request": {
+						"url": "{{API}}/qrcode",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "value",
+									"value": "192873917239817239878686",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": "Inseire QCodes no Banco de Dados"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"description": "Requisições Relacionadas ao Cliente Administrador",
+			"item": [
+				{
+					"name": "QRCode Group",
+					"request": {
+						"url": "{{ADMIN}}/qrcode",
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"description": ""
+							},
+							{
+								"key": "user",
+								"value": "{{user}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Agrupa qrcodes por estado"
+					},
+					"response": []
+				},
+				{
+					"name": "Coupon Group",
+					"request": {
+						"url": "{{ADMIN}}/coupon",
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"description": ""
+							},
+							{
+								"key": "user",
+								"value": "{{user}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Agrupa cupons por estado"
+					},
+					"response": []
+				},
+				{
+					"name": "Request",
+					"request": {
+						"url": "{{ADMIN}}/request",
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"description": ""
+							},
+							{
+								"key": "user",
+								"value": "{{user}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Mostra Requisições Armazenadas"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"description": "Requisições Relacionadas a Logins de Usuarios",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"// Armazena token de conexão",
+									"const body = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"token\", body.token);",
+									"",
+									"// Armazena Usuario Logado",
+									"delete body.token;",
+									"postman.setEnvironmentVariable(\"user\", JSON.stringify(body));"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{API}}/login?username=admin&password=admin",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Executa login e guarda token de conexão"
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"url": "{{ADMIN}}/logout",
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"description": ""
+							},
+							{
+								"key": "user",
+								"value": "{{user}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Faz LogOut do Usuario Logado"
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"url": "{{ADMIN}}/password",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"description": ""
+							},
+							{
+								"key": "user",
+								"value": "{{user}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": "Altera senha do Usuario Logado"
+					},
+					"response": []
+				},
+				{
+					"name": "Recover Password",
+					"request": {
+						"url": "{{API}}/reset",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "admin",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": "Recupera Senha do Usuario Informado."
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
