@@ -41,7 +41,7 @@ const group = (date) => {
  * @param {object} coupon
  * @return {Promise}
  */
-const update = (id, coupon) => {
+const update = (id, qrcode) => {
   return new Promise((resolve, reject) => {
 
     QRCode.query()
