@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "Cupom API",
-		"_postman_id": "d02bdf6f-406a-7e35-866a-e8b69da07dfa",
+		"_postman_id": "95703835-8bed-fab2-1885-aef85410d319",
 		"description": "Requisições da API atualizada do projeto de cadastro de cupons fiscais.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -90,7 +90,7 @@
 			"description": "Requisições Relacionadas ao Cliente Administrador",
 			"item": [
 				{
-					"name": "QRCode Group",
+					"name": "QRCode BOT",
 					"request": {
 						"url": "{{ADMIN}}/qrcode",
 						"method": "GET",
@@ -110,12 +110,12 @@
 							"mode": "raw",
 							"raw": ""
 						},
-						"description": "Agrupa qrcodes por estado"
+						"description": "Inicializa BOT para cadastro de qrcodes e retorna imagem do captcha"
 					},
 					"response": []
 				},
 				{
-					"name": "Coupon Group",
+					"name": "Coupon BOT",
 					"request": {
 						"url": "{{ADMIN}}/coupon",
 						"method": "GET",
@@ -135,7 +135,7 @@
 							"mode": "raw",
 							"raw": ""
 						},
-						"description": "Agrupa cupons por estado"
+						"description": "Inicializa BOT para cadastro de cupons e retorna imagem do captcha"
 					},
 					"response": []
 				},
