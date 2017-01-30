@@ -9,7 +9,7 @@ const Request = require('../model/Request');
 const info = (request) => {
   return {
     ip: request.headers['x-forwarded-for'] || request.connection.remoteAddress,
-    protocol: request.protocol,
+    protocol: request.header.upgrade || request.protocol,
     method: request.method,
     agent: request.headers['user-agent'],
     host: request.headers.host,

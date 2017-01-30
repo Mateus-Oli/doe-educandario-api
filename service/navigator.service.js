@@ -7,7 +7,6 @@ const until = WebDriver.until;
 const key   = WebDriver.key;
 
 // Configurações para Site
-const page  = 'https://www.nfp.fazenda.sp.gov.br/';
 const user  = require('../config/site.account');
 
 // Sobreescreve objeto {Date} e {Number}
@@ -21,8 +20,9 @@ const createBrowser = () => {
 
   return new Promise((resolve, reject) => {
 
-    // Phantom JS
-    return resolve(new WebDriver.Builder().forBrowser('phantomjs'));
+    // Phantom JS na Pagina da Receita
+    const driver = new WebDriver.Builder().forBrowser('phantomjs').build();
+    driver.get(`${user.page}/login.aspx`).then(() => resolve(driver));
   });
 };
 
@@ -59,7 +59,7 @@ const toRegister = (driver) => {
     driver.wait(until.elementLocated(By.xpath('//*[@id="menuSuperior"]/ul/li[4]/a')));
 
     //Redireciona ate tela de entidade
-    driver.get(page + 'EntidadesFilantropicas/CadastroNotaEntidadeAviso.aspx');
+    driver.get(user.page + 'EntidadesFilantropicas/CadastroNotaEntidadeAviso.aspx');
 
     //Pagina do 'prosseguir'
     driver.wait(until.elementLocated(By.xpath('//*[@id="ctl00_ConteudoPagina_btnOk"]')));
@@ -85,7 +85,6 @@ const toRegister = (driver) => {
         driver.wait(until.elementLocated(By.xpath('//*[@id="ConteudoPrincipal"]/div[2]')));
         driver.findElement(By.xpath('/html/body/div[4]/div[11]/div/button[1]/span')).click();
         driver.findElement(By.xpath('/html/body/div[4]/div[11]/div/button[1]/span')).click();
-
         return resolve(driver);
       });
   });
@@ -102,8 +101,8 @@ const captcha = (driver) => {
 
     driver.findElement(By.xpath('//*[@id="captchaNFP"]'))
       .then(driver.takeScreenshot())
-      .then((image) => resolve(driver, image))
-      .catch((err) => reject(err));
+      .then((image) => resolve(driver, image))/* Imagem do Captcha */
+      .catch((err) => reject(driver, err)); /* Não Exite Captcha */
   });
 }
 
@@ -113,6 +112,7 @@ const captcha = (driver) => {
  * @return {Promise}
  */
 const clearFields = (driver) => {
+
   return new Promise((resolve, reject) => {
 
     // Limpa Captcha
@@ -179,7 +179,7 @@ const save = (driver) => {
         driver.findElement(By.xpath('//*[@id="divCaptcha"]/input')).sendKeys(coupon.captcha).catch((err) => {});//CAPTCHA
 
         // Salva Cupom
-        save(driver).then(() => resolve(driver));
+        save(driver).then(() => resolve(coupon));
       });
    });
  };
@@ -187,10 +187,10 @@ const save = (driver) => {
 /**
 * @desc Inseri dados em formulario de Chave
 * @param {object} driver
-* @param {object} key
+* @param {object} qrcode
 * @return {Promise}
 */
-const registerKey = (driver, key) => {
+const registerQRCode = (driver, qrcode) => {
 
   return new Promise((resolve, reject) => {
 
@@ -200,11 +200,11 @@ const registerKey = (driver, key) => {
      .then(() => {
 
        // Preenche Formulario
-       driver.findElement(By.xpath('//*[@id="divCNPJEstabelecimento"]/input')).sendKeys(key.value);//CHAVE
-       driver.findElement(By.xpath('//*[@id="divCaptcha"]/input')).sendKeys(key.captcha).catch((err) => {});//CAPTCHA
+       driver.findElement(By.xpath('//*[@id="divCNPJEstabelecimento"]/input')).sendKeys(qrcode.value);//CHAVE
+       driver.findElement(By.xpath('//*[@id="divCaptcha"]/input')).sendKeys(qrcode.captcha).catch((err) => {});//CAPTCHA
 
        // Salva Cupom
-       save(driver).then(() => resolve(driver));
+       save(driver).then(() => resolve(qrcode));
     });
   });
 };
@@ -215,5 +215,5 @@ module.exports = {
   toRegister,
   captcha,
   registerCoupon,
-  registerKey
+  registerQRCode
 };

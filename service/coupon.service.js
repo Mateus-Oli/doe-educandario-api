@@ -2,6 +2,19 @@
 const Coupon = require('../model/Coupon');
 
 /**
+ * @desc Lista cupons em banco
+ * @return {Promise}
+ */
+const list = () => {
+
+  return new Promise((resolve, reject) => {
+
+    Coupon.query()
+      .then((coupons) => resolve(coupons));
+  });
+};
+
+/**
  * @desc Inseri um Cupom no banco
  * @param {object} coupon
  * @return {Promise}
@@ -62,6 +75,7 @@ const remove = (id) => {
 };
 
 module.exports = {
+  list,
   create,
   group,
   update,

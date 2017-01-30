@@ -6,6 +6,9 @@ const bodyParser = require('body-parser');
 // Configurações
 const PORT = 8008;
 
+// Phantom como variavel do sistema
+process.env.Path += `;${__dirname}\\node_modules\\phantomjs-prebuilt\\lib\\phantom\\bin\\`;
+
 // Servicos
 const requestService = require('./service/request.service'); /* LOG Requests */
 const loginService = require('./service/login.service'); /* Valida Logins */
@@ -38,7 +41,7 @@ app.all('*',(req, res, next) => {
   // Acrescenta Cabeçalhos necessarios
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, token');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, token, user');
 
   // Armazena Request em Banco
   requestService.create(req);
@@ -48,6 +51,9 @@ app.all('*',(req, res, next) => {
 
 // Valida Token de Conexão
 app.all('/admin/*', (req, res, next) => {
+
+  // Excessão para WebSocket
+  if(req.headers.upgreade === 'websocket') return next();
 
   loginService.checkToken(req.headers.token)
     .then(next)

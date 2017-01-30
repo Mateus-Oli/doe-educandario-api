@@ -2,15 +2,42 @@
 const express = require('express');
 const router = express.Router();
 
-// Cupom
+// Serviços
 const couponService = require('../../service/coupon.service');
+const Navigator = require('../../service/navigator.service');
+
+// WebScoket Routes
+router.ws('/coupon', (ws, req) => {
+  ws.send({body: 'teste'});
+});
 
 // Rotas de Cupom
 router.route('/coupon')
   .get((req, res) => {
-    couponService.group(req.body.date)
-      .then((coupons) => res.json(coupons))
-      .catch((err) => res.status(500).send(err));
+
+    Navigator.createBrowser() /* Instancia do Navegador */
+      .then(Navigator.toRegister) /* Tela de Registro */
+      .then(Navigator.captcha) /* ScreenShot do Captcha */
+      .then((driver, captcha) => {
+
+        return new Promise((resolve, reject) => {
+
+          // Envia Captcha a ser Resolvido
+        });
+      }).catch((driver) => driver) /* Captcha Não Existe */
+      .then((driver) => {
+
+        couponService.list().then((coupons) => {
+          coupons.forEach((coupon) => {
+            Navigator.registerCoupon()
+              .then((coupon) => Navigator.update(cupoun.id, {status: 'registered'})) /* Cadastro Sucesso */
+              .catch((err) => {
+
+                /* Falha em Captcha ou Cadastro */
+              });
+          });
+        });
+      });
   });
 
 module.exports = router;

@@ -9,7 +9,7 @@ const SECONDS = 1000,
 // Tempo de expiração do token de segurança
 const EXPIRATION = 2 * HOURS;
 
-// Lista de tokens validos
+// Lista de Tokens Validos
 const tokens = [];
 
 // Modelo do Usuario
