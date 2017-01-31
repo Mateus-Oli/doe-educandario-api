@@ -6,8 +6,9 @@ const bodyParser = require('body-parser');
 // Configurações
 const PORT = 8008;
 
-// Phantom como variavel do sistema
+// WebDriver como variavel do sistema
 process.env.Path += `;${__dirname}\\node_modules\\phantomjs-prebuilt\\lib\\phantom\\bin\\`;
+process.env.Path += `;${__dirname}\\node_modules\\chromedriver\\lib\\chromedriver\\`;
 
 // Servicos
 const requestService = require('./service/request.service'); /* LOG Requests */

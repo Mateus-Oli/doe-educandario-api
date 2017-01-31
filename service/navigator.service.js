@@ -4,7 +4,7 @@ const WebDriver = require('selenium-webdriver');
 // Métodos para navegação
 const By    = WebDriver.By;
 const until = WebDriver.until;
-const key   = WebDriver.key;
+const Key   = WebDriver.Key;
 
 // Configurações para Site
 const user  = require('../config/site.account');
@@ -21,8 +21,9 @@ const createBrowser = () => {
   return new Promise((resolve, reject) => {
 
     // Phantom JS na Pagina da Receita
-    const driver = new WebDriver.Builder().forBrowser('phantomjs').build();
-    driver.get(`${user.page}/login.aspx`).then(() => resolve(driver));
+    const driver = new WebDriver.Builder().forBrowser('chrome').build();
+    driver.get(`${user.page}/login.aspx`)
+      .then(() => resolve(driver));
   });
 };
 
@@ -59,16 +60,7 @@ const toRegister = (driver) => {
     driver.wait(until.elementLocated(By.xpath('//*[@id="menuSuperior"]/ul/li[4]/a')));
 
     //Redireciona ate tela de entidade
-    driver.get(user.page + 'EntidadesFilantropicas/CadastroNotaEntidadeAviso.aspx');
-
-    //Pagina do 'prosseguir'
-    driver.wait(until.elementLocated(By.xpath('//*[@id="ctl00_ConteudoPagina_btnOk"]')));
-    driver.findElement(By.xpath('//*[@id="ctl00_ConteudoPagina_btnOk"]')).click();
-
-    //escolhendo entidade
-    driver.wait(until.elementLocated(By.xpath('//*[@id="ddlEntidadeFilantropica"]/option[2]')));
-    driver.findElement(By.xpath('//*[@id="ddlEntidadeFilantropica"]/option[2]')).click();
-    driver.findElement(By.xpath('//*[@id="ctl00_ConteudoPagina_btnNovaNota"]')).click();
+    driver.get(`${user.page}/EntidadesFilantropicas/CadastroNotaEntidadeAviso.aspx`);
 
     //Pagina do 'prosseguir'
     driver.wait(until.elementLocated(By.xpath('//*[@id="ctl00_ConteudoPagina_btnOk"]')));
@@ -80,13 +72,9 @@ const toRegister = (driver) => {
     driver.findElement(By.xpath('//*[@id="ctl00_ConteudoPagina_btnNovaNota"]')).click();
 
     //Pagina de cadastro - confirmar 'DIV'
-    driver.wait(until.elementLocated(By.xpath('//*[@id="divPerguntaMaster"]')), 5000)
-      .then(() => {
-        driver.wait(until.elementLocated(By.xpath('//*[@id="ConteudoPrincipal"]/div[2]')));
-        driver.findElement(By.xpath('/html/body/div[4]/div[11]/div/button[1]/span')).click();
-        driver.findElement(By.xpath('/html/body/div[4]/div[11]/div/button[1]/span')).click();
-        return resolve(driver);
-      });
+    driver.wait(until.elementLocated(By.xpath('//*[@id="lblPerguntaMaster"]')))
+      .sendKeys(Key.ESCAPE)
+      .then(() => resolve(driver));
   });
 };
 
@@ -100,9 +88,9 @@ const captcha = (driver) => {
   return new Promise((resolve, reject) => {
 
     driver.findElement(By.xpath('//*[@id="captchaNFP"]'))
-      .then(driver.takeScreenshot())
-      .then((image) => resolve(driver, image))/* Imagem do Captcha */
-      .catch((err) => reject(driver, err)); /* Não Exite Captcha */
+      .then(() => driver.takeScreenshot())
+      .then((captcha) => resolve({driver, captcha}))/* Imagem do Captcha */
+      .catch((err) => reject(driver)); /* Não Exite Captcha */
   });
 }
 

@@ -18,7 +18,10 @@ router.route('/coupon')
     Navigator.createBrowser() /* Instancia do Navegador */
       .then(Navigator.toRegister) /* Tela de Registro */
       .then(Navigator.captcha) /* ScreenShot do Captcha */
-      .then((driver, captcha) => {
+      .then((result) => {
+
+        // Divide Resultado da promessa
+        const {driver, captcha}  = result;
 
         return new Promise((resolve, reject) => {
 
@@ -29,8 +32,8 @@ router.route('/coupon')
 
         couponService.list().then((coupons) => {
           coupons.forEach((coupon) => {
-            Navigator.registerCoupon()
-              .then((coupon) => Navigator.update(cupoun.id, {status: 'registered'})) /* Cadastro Sucesso */
+            Navigator.registerCoupon(driver, coupon)
+              .then((coupon) => couponService.update(coupon.id, {status: 'registered'})) /* Cadastro Sucesso */
               .catch((err) => {
 
                 /* Falha em Captcha ou Cadastro */
