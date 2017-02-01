@@ -8,10 +8,10 @@ const request = require('./request.migration');
 const user    = require('./user.migration');
 
 // Remove tabelas
-const dropCoupon  = coupon.down(knex).then((table) =>  console.log('table coupon dropped'));
-const dropQRCode  = qrCode.down(knex).then((table) =>  console.log('table qrcode dropped'));
-const dropRequest = request.down(knex).then((table) => console.log('table request dropped'));
-const dropUser    = user.down(knex).then((table) =>    console.log('table user dropped'));
+const dropCoupon  = coupon.down(knex).then(()  => console.log('table coupon dropped'));
+const dropQRCode  = qrCode.down(knex).then(()  => console.log('table qrcode dropped'));
+const dropRequest = request.down(knex).then(() => console.log('table request dropped'));
+const dropUser    = user.down(knex).then(()    => console.log('table user dropped'));
 
 Promise.all([
   dropCoupon,

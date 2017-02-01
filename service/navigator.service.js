@@ -72,8 +72,8 @@ const toRegister = (driver) => {
  */
 const captcha = (driver) => driver.findElement(By.xpath('//*[@id="captchaNFP"]'))
   .then(driver.takeScreenshot) /* Foto do Captcha */
-  .then((captcha) => {driver, captcha})/* Imagem do Captcha */
-  .catch((err) => driver); /* Não Exite Captcha */
+  .then((captcha) => {return {driver, captcha};})/* Imagem do Captcha */
+  .catch(() => driver); /* Não Exite Captcha */
 
 /**
  * @desc Limpa campos de cadastro
@@ -83,7 +83,7 @@ const captcha = (driver) => driver.findElement(By.xpath('//*[@id="captchaNFP"]')
 const clearFields = (driver) => {
 
   // Limpa Captcha se Existe
-  driver.findElement(By.xpath('//*[@id="divCaptcha"]/input')).clear().catch(err =>{});
+  driver.findElement(By.xpath('//*[@id="divCaptcha"]/input')).clear().catch(() => {});
 
   // Limpa Cupom
   return driver.findElement(By.xpath('//*[@id="divCNPJEstabelecimento"]/input')).clear()     /* CNPJ  */
@@ -121,21 +121,21 @@ const save = (driver) => driver
  * @param {object} coupon
  * @return {Promise}
  */
- const registerCoupon = (driver, coupon) => driver
+const registerCoupon = (driver, coupon) => driver
   .wait(until.elementLocated(By.xpath('//*[@id="divCNPJEstabelecimento"]/input')))
-  .then(driver.wait(until.elementLocated(By.xpath('Weird')), 100).catch((err) => {}))
+  .then(driver.wait(until.elementLocated(By.xpath('Weird')), 100).catch(() => {}))
   .then(() => {
 
-      // Preenche Formulario
-      driver.findElement(By.xpath('//*[@id="divCNPJEstabelecimento"]/input')).sendKeys(coupon.cnpj);            /* CNPJ    */
-      driver.findElement(By.xpath('//*[@id="divtxtDtNota"]/input')).sendKeys(coupon.date.format('dd/MM/yyyy')); /* DATA    */
-      driver.findElement(By.xpath('//*[@id="divtxtNrNota"]/input')).sendKeys(coupon.coo);                       /* COO     */
-      driver.findElement(By.xpath('//*[@id="divtxtVlNota"]/input')).sendKeys(coupon.total);                     /* TOTAL   */
-      driver.findElement(By.xpath('//*[@id="divCaptcha"]/input')).sendKeys(coupon.captcha).catch((err) => {});  /* CAPTCHA */
+    // Preenche Formulario
+    driver.findElement(By.xpath('//*[@id="divCNPJEstabelecimento"]/input')).sendKeys(coupon.cnpj);            /* CNPJ    */
+    driver.findElement(By.xpath('//*[@id="divtxtDtNota"]/input')).sendKeys(coupon.date.format('dd/MM/yyyy')); /* DATA    */
+    driver.findElement(By.xpath('//*[@id="divtxtNrNota"]/input')).sendKeys(coupon.coo);                       /* COO     */
+    driver.findElement(By.xpath('//*[@id="divtxtVlNota"]/input')).sendKeys(coupon.total);                     /* TOTAL   */
+    driver.findElement(By.xpath('//*[@id="divCaptcha"]/input')).sendKeys(coupon.captcha).catch(() => {});  /* CAPTCHA */
 
-      // Salva Cupom
-      return save(driver).then(() => coupon);
-    });
+    // Salva Cupom
+    return save(driver).then(() => coupon);
+  });
 
 /**
 * @desc Inseri dados em formulario de Chave
@@ -145,15 +145,15 @@ const save = (driver) => driver
 */
 const registerQRCode = (driver, qrcode) => driver
   .wait(until.elementLocated(By.xpath('//*[@id="divCNPJEstabelecimento"]/input')))
-  .then(driver.wait(until.elementLocated(By.xpath('Weird')), 100).catch((err) => {}))
+  .then(driver.wait(until.elementLocated(By.xpath('Weird')), 100).catch(() => {}))
   .then(() => {
 
-     // Preenche Formulario
-     driver.findElement(By.xpath('//*[@id="divCNPJEstabelecimento"]/input')).sendKeys(qrcode.value);          /* VALOR   */
-     driver.findElement(By.xpath('//*[@id="divCaptcha"]/input')).sendKeys(qrcode.captcha).catch((err) => {}); /* CAPTCHA */
+    // Preenche Formulario
+    driver.findElement(By.xpath('//*[@id="divCNPJEstabelecimento"]/input')).sendKeys(qrcode.value);          /* VALOR   */
+    driver.findElement(By.xpath('//*[@id="divCaptcha"]/input')).sendKeys(qrcode.captcha).catch(() => {}); /* CAPTCHA */
 
-     // Salva Cupom
-     return save(driver).then(() => qrcode);
+    // Salva Cupom
+    return save(driver).then(() => qrcode);
   });
 
 module.exports = {

@@ -8,6 +8,8 @@ const Navigator = require('../../service/navigator.service');
 
 // WebScoket Routes
 router.ws('/coupon', (ws, req) => {
+
+  console.log(req);
   ws.send({body: 'teste'});
 });
 
@@ -20,18 +22,23 @@ router.route('/coupon')
     .then((result) => {
 
       const {driver, captcha}  = result;
-      /* Resolve Captcha */
+
+      // Resolve Captcha
+      res.send(captcha);
+      return driver;
+
     }).catch((driver) => driver) /* Captcha Não Existe */
       .then((driver) => couponService
-      .list()) /* Lista Coupons */
+      .list() /* Lista Coupons */
       .then((coupons) => coupons
-      .forEach((coupons) => Navigator
+      .forEach((coupon) => Navigator
         .registerCoupon(driver, coupon) /* Registra Cupom em Site */
         .then((coupon) => couponService
         .update(coupon.id, {status: 'registered'})) /* Cadastro Sucesso */
         .catch((err) => {
 
-          /* Falha em Captcha ou Cadastro */
-        }))));
+          // Falha em Captcha ou Cadastro
+          return err;
+        })))));
 
 module.exports = router;

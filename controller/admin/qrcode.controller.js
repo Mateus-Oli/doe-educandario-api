@@ -7,9 +7,13 @@ const qrcodeService = require('../../service/qrcode.service');
 const Navigator = require('../../service/navigator.service');
 
 // WebScoket Routes
-router.ws('/qrcode', (ws, req) => {});
+router.ws('/qrcode', (ws, req) => {
 
-// Rotas de QRCode
+  console.log(req);
+  ws.send({body: 'teste'});
+});
+
+// Rotas de Cupom
 router.route('/qrcode')
   .get((req, res) => Navigator
     .createBrowser() /* Instancia do Navegador */
@@ -18,10 +22,14 @@ router.route('/qrcode')
     .then((result) => {
 
       const {driver, captcha}  = result;
-      /* Resolve Captcha */
+
+      // Resolve Captcha
+      res.send(captcha);
+      return driver;
+
     }).catch((driver) => driver) /* Captcha Não Existe */
       .then((driver) => qrcodeService
-      .list()) /* Lista QRCodes */
+      .list() /* Lista QRCodes */
       .then((qrcodes) => qrcodes
       .forEach((qrcode) => Navigator
         .registerQRCode(driver, qrcode) /* Registra QRCode em Site */
@@ -29,7 +37,8 @@ router.route('/qrcode')
         .update(qrcode.id, {status: 'registered'})) /* Cadastro Sucesso */
         .catch((err) => {
 
-          /* Falha em Captcha ou Cadastro */
-        }))));
+          // Falha em Captcha ou Cadastro
+          return err;
+        })))));
 
 module.exports = router;

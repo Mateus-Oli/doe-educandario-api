@@ -1,7 +1,7 @@
 // API + WebSocket
 const app        = require('express')();
-const expressWs  = require('express-ws')(app);
 const bodyParser = require('body-parser');
+require('express-ws')(app);
 
 // Configurações
 const {PORT} = require('./config');

@@ -4,7 +4,7 @@ const createUser = userService.create({
   email: 'mateus.oli.car@gmail.com',
   name:  'admin',
   password: 'admin'
-}).then((user) => console.log('User Inserted'));
+}).then((user) => console.log(`User ${user.name} inserted`));
 
 Promise.all([
   createUser,

@@ -26,7 +26,7 @@ const find = (id) => Coupon.query().findById(id);
  * @param {Date} date
  * @return {Promise}
  */
-const group = (date) => Coupon.query()
+const group = () => Coupon.query()
   .select('status')
   .count('status')
   .groupBy('status');
@@ -44,7 +44,7 @@ const update = (id, coupon) => Coupon.query().patchAndFetchById(id, coupon);
  * @param {number} id
  * @return {Promise}
  */
-const remove = () => Coupon.query().deleteById(id);
+const remove = (id) => Coupon.query().deleteById(id);
 
 module.exports = {
   create,

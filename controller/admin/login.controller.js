@@ -24,7 +24,7 @@ router.route('/login')
 router.route('/reset')
   .put((req, res) => loginService
     .resetPassword(req.body.username || req.body.email)
-    .then((user) => res.json('OK'))
+    .then(() => res.json('OK'))
     .catch((err) => res.status(500).send(err)));
 
 module.exports = router;

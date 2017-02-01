@@ -55,4 +55,4 @@ Date.prototype.format = function format(format) {
 module.exports = {
   Date,
   Number
-}
+};

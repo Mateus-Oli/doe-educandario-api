@@ -23,13 +23,12 @@ const find = (id) => QRCode.query().findById(id);
 
 /**
  * @desc Agrupa QRCodes por Estado
- * @param {Date} date
  * @return {Promise}
  */
-const group = (date) => QRCode.query()
+const group = () => QRCode.query()
   .select('status')
   .count('status')
-  .groupBy('status')
+  .groupBy('status');
 
 /**
  * @desc Atualiza cupom
@@ -47,8 +46,9 @@ const update = (id, qrcode) => QRCode.query().patchAndFetchById(id, qrcode);
 const remove = (id) => QRCode.query().deleteById(id);
 
 module.exports = {
-  list,
   create,
+  list,
+  find,
   group,
   update,
   remove

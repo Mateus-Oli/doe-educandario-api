@@ -1,5 +1,5 @@
 // Encriptador
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt-nodejs-as-promised');
 
 // Modelo da User
 const User = require('../model/User');
@@ -9,22 +9,12 @@ const User = require('../model/User');
  * @param {object}
  * @return {Promise}
  */
-const create = (user) => {
-
-  return new Promise((resolve, reject) => {
-
-    // Encripta senha
-    bcrypt.hash(user.password, 10, (err, password) => {
-
-      user.password = password;
-
-      // Salva Usuario no Banco
-      User.query()
-        .insert(user)
-        .then((user) => resolve(user));
-    });
-  });
-};
+const create = (user) => bcrypt
+  .hash(user.password, 10)
+  .then((password) => {
+    user.password = password;
+    return user;
+  }).then(User.query().insert);
 
 /**
  * @desc Atualiza usuario
@@ -32,21 +22,12 @@ const create = (user) => {
  * @param {string} user
  * @return {Promise}
  */
-const update = (id, user) => {
-
-  return new Promise((resolve, reject) => {
-
-    // Encripta nova Senha
-    bcrypt.hash(user.password, 10, (err, password) => {
-
-      user.password = password;
-
-      User.query()
-        .patchAndFetchById(id, user)
-        .then((user) => resolve(user));
-    });
-  });
-};
+const update = (id, user) => bcrypt
+  .hash(user.password, 10)
+  .then((password) => {
+    user.password = password;
+    return user;
+  }).then(User.query().insert);
 
 /**
  * @desc Remove Usuario

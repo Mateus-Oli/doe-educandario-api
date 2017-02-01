@@ -4,8 +4,9 @@
   "description": "API de gerenciamento do aplicativo DOE Educandario",
   "main": "index.js",
   "scripts": {
-    "migration": "node migration",
+    "lint": "eslint .",
     "drop": "node migration/drop",
+    "migration": "node migration",
     "seed": "node migration/seed",
     "start": "nodemon index.js"
   },
@@ -17,25 +18,20 @@
   "author": "Mateus <mateus.oli.car@gmail.com>",
   "license": "ISC",
   "dependencies": {
-
-    "nodemon": "^1.11.0",
-
+    "bcrypt-nodejs-as-promised": "^1.0.4",
     "body-parser": "^1.16.0",
     "express": "^4.14.0",
     "express-ws": "^2.0.0",
-
-    "bcryptjs": "^2.4.0",
-    "nodemailer": "^2.7.2",
-
-    "pg": "^6.1.2",
     "knex": "^0.12.6",
+    "nodemailer": "^2.7.2",
+    "nodemon": "^1.11.0",
     "objection": "^0.6.2",
-
+    "pg": "^6.1.2",
     "phantom": "^4.0.0",
     "selenium-webdriver": "^3.0.1"
   },
   "devDependencies": {
-
-    "chromedriver": "^2.27.2"
+    "chromedriver": "^2.27.2",
+    "eslint": "^3.14.1"
   }
 }

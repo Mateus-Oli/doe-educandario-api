@@ -20,7 +20,7 @@ router.route('/request/:id')
 
   .delete((req, res) => requestService
     .remove(req.params.id)
-    .then((resut) => res.json(result))
+    .then((result) => res.json(result))
     .catch((err) => res.status(500).send(err)));
 
 module.exports = router;

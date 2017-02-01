@@ -12,7 +12,7 @@ const userService = require('../../service/user.service');
 router.route('/logout')
   .get((req, res) => loginService
     .logOut(req.headers.token)
-    .then((token) => res.json('OK'))
+    .then(() => res.json('OK'))
     .catch((err) => res.status(500).send(err)));
 
 router.route('/password')
@@ -24,7 +24,7 @@ router.route('/password')
 
     userService
       .update(id, body)
-      .then((user) => res.json('OK'))
+      .then(() => res.json('OK'))
       .catch((err) => res.status(500).send(err));
   });
 
