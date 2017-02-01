@@ -50,19 +50,10 @@ const update = (id, user) => {
 
 /**
  * @desc Remove Usuario
- * @param {integer} id
+ * @param {number} id
  * @return {Promise}
  */
-const remove = (id) => {
-
-  return new Promise((resolve, reject) => {
-
-    User.query()
-      .delete()
-      .where('id', '=', id)
-      .then((user) => resolve(user));
-  });
-};
+const remove = (id) => User.query().deleteById(id);
 
 module.exports = {
   create,

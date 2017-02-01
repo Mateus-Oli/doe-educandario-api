@@ -1,5 +1,5 @@
 // Banco de Dados
-const knex = require('../config/data.base');
+const {knex} = require('../config');
 
 // Tabelas
 const coupon  = require('./coupon.migration');

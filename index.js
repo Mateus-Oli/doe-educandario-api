@@ -4,11 +4,7 @@ const expressWs  = require('express-ws')(app);
 const bodyParser = require('body-parser');
 
 // Configurações
-const PORT = 8008;
-
-// WebDriver como variavel do sistema
-process.env.Path += `;${__dirname}\\node_modules\\phantomjs-prebuilt\\lib\\phantom\\bin\\`;
-process.env.Path += `;${__dirname}\\node_modules\\chromedriver\\lib\\chromedriver\\`;
+const {PORT} = require('./config');
 
 // Servicos
 const requestService = require('./service/request.service'); /* LOG Requests */
@@ -45,7 +41,7 @@ app.all('*',(req, res, next) => {
   res.header('Access-Control-Allow-Headers', 'Content-Type, token, user');
 
   // Armazena Request em Banco
-  requestService.create(req);
+  requestService.create(req).then();
 
   next();
 });

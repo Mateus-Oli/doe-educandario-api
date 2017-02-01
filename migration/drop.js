@@ -1,5 +1,5 @@
 // Banco de Dados
-const knex = require('../config/data.base');
+const {knex} = require('../config');
 
 // Tabelas
 const coupon  = require('./coupon.migration');
@@ -9,7 +9,7 @@ const user    = require('./user.migration');
 
 // Remove tabelas
 const dropCoupon  = coupon.down(knex).then((table) =>  console.log('table coupon dropped'));
-const dropQRCode  = qrCode.down(knex).then((table) =>     console.log('table qrcode dropped'));
+const dropQRCode  = qrCode.down(knex).then((table) =>  console.log('table qrcode dropped'));
 const dropRequest = request.down(knex).then((table) => console.log('table request dropped'));
 const dropUser    = user.down(knex).then((table) =>    console.log('table user dropped'));
 

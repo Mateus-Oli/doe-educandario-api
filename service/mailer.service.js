@@ -1,5 +1,5 @@
 // Mailer
-const transport = require('../config/email.account');
+const {mailer} = require('../config');
 
 /**
  * @desc Envia Email de Recuperação de Senha
@@ -23,7 +23,7 @@ const recoverPassword = (user) => {
     };
 
     // Envia Email
-    transport.sendMail(options, (err, info) => {
+    mailer.sendMail(options, (err, info) => {
       if(err) return reject(err);
       return resolve(info);
     });

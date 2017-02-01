@@ -2,7 +2,7 @@
 const Request = require('../model/Request');
 
 /**
- * @desc Removes Information from Request
+ * @desc Agrega informações da request
  * @param {object} request
  * @return {Request}
  */
@@ -23,47 +23,31 @@ const info = (request) => {
  * @param {object} request requisição a ser inserida
  * @return {Promise}
  */
-const create = (request) => {
+const create = (request) => Request.query().insert(info(request));
 
-  return new Promise((resolve, reject) => {
-
-    // Informações da Requisição
-    const req = info(request);
-
-    // Salva Requisição no Banco
-    Request.query()
-      .insert(req)
-      .then((request) => resolve(request));
-  });
-};
+/**
+ * @desc Lista requests
+ * @return {Promise}
+ */
+const list = () => Request.query();
 
 /**
  * @desc Seleciona request no banco
  * @param {object} id requisição a ser inserida
  * @return {Promise}
  */
-const find = (id) => {
-  return new Promise((resolve, reject) => {
+const find = (id) => Request.query().findById(id);
 
-    Request.query()
-      .where('id', '=', id)
-      .then((request) => resolve(request[0]));
-  });
-};
-
-const remove = (id) => {
-
-  return new Promise((resolve, reject) => {
-
-    Request.query()
-      .delete()
-      .where('id', '=', id)
-      .then((request) => resolve(request));
-  });
-};
+/**
+ * @desc Deleta registro da requisição
+ * @param {number} id
+ * @return {Promise}
+ */
+const remove = (id) => Request.query().deleteById(id);
 
 module.exports = {
   create,
+  list,
   find,
   remove
 };

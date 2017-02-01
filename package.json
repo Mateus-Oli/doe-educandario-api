@@ -1,7 +1,7 @@
 {
-  "name": "cupom-bot",
-  "version": "0.1.0",
-  "description": "Versão correta do BOT",
+  "name": "cupom-api",
+  "version": "0.1.5",
+  "description": "API de gerenciamento do aplicativo DOE Educandario",
   "main": "index.js",
   "scripts": {
     "migration": "node migration",
@@ -14,22 +14,28 @@
     "Phantom",
     "Cupom"
   ],
-  "author": "Mateus Oliveira Carvalho",
+  "author": "Mateus <mateus.oli.car@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "bcryptjs": "^2.4.0",
+
+    "nodemon": "^1.11.0",
+
     "body-parser": "^1.16.0",
     "express": "^4.14.0",
     "express-ws": "^2.0.0",
-    "knex": "^0.12.6",
+
+    "bcryptjs": "^2.4.0",
     "nodemailer": "^2.7.2",
-    "nodemon": "^1.11.0",
-    "objection": "^0.6.2",
+
     "pg": "^6.1.2",
+    "knex": "^0.12.6",
+    "objection": "^0.6.2",
+
     "phantom": "^4.0.0",
     "selenium-webdriver": "^3.0.1"
   },
   "devDependencies": {
+
     "chromedriver": "^2.27.2"
   }
 }

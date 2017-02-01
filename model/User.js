@@ -1,6 +1,6 @@
 // Conexão com Base de Dados
 const Model = require('objection').Model;
-const knex  = require('../config/data.base');
+const {knex}  = require('../config');
 Model.knex(knex);
 
 // Modelo de Usuario

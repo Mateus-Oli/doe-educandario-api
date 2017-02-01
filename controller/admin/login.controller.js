@@ -11,21 +11,20 @@ router.route('/login')
   .get((req, res) => {
 
     // Informação do Usuario
-    const username = req.query.username;
-    const password = req.query.password;
+    const {username, password} = req.query;
 
     // Valida login
-    loginService.validate(username, password)
+    loginService
+      .validate(username, password)
       .then(loginService.generateToken)
       .then((user) => res.json(user))
       .catch((err) => res.status(401).send(err));
   });
 
 router.route('/reset')
-  .put((req, res) => {
-    loginService.resetPassword(req.body.username || req.body.email)
-      .then((user) => res.json('OK'))
-      .catch((err) => res.status(500).send(err));
-  });
+  .put((req, res) => loginService
+    .resetPassword(req.body.username || req.body.email)
+    .then((user) => res.json('OK'))
+    .catch((err) => res.status(500).send(err)));
 
 module.exports = router;

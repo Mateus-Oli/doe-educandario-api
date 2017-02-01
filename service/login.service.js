@@ -1,13 +1,8 @@
 // Encriptador
 const bcrypt = require('bcryptjs');
 
-// Tempo
-const SECONDS = 1000,
-      MINUTES = 60 * SECONDS,
-      HOURS    = 60 * MINUTES;
-
 // Tempo de expiração do token de segurança
-const EXPIRATION = 2 * HOURS;
+const {EXPIRATION} = require('../config');
 
 // Lista de Tokens Validos
 const tokens = [];
@@ -33,15 +28,16 @@ const validate = (username, password) => {
     if(!password) return reject('invalid password');
 
     // Seleciona usuario informado
-    User.query().where('name', '=', username)
-                .orWhere('email', '=', username)
-                .then((user) => {
+    User.query()
+      .where('name', '=', username)
+      .orWhere('email', '=', username)
+      .then((user) => {
 
-      user = user[0];
-      if(user[0]) return reject('invalid user');
+        user = user[0];
+        if(user[0]) return reject('invalid user');
 
-      // Verifica validade da senha
-      bcrypt.compare(password, user.password, (err, res) => {
+        // Verifica validade da senha
+        bcrypt.compare(password, user.password, (err, res) => {
 
         if(res) return resolve(user);
         return reject('invalid password');

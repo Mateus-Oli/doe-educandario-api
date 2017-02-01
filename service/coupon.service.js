@@ -2,81 +2,54 @@
 const Coupon = require('../model/Coupon');
 
 /**
- * @desc Lista cupons em banco
- * @return {Promise}
- */
-const list = () => {
-
-  return new Promise((resolve, reject) => {
-
-    Coupon.query()
-      .then((coupons) => resolve(coupons));
-  });
-};
-
-/**
- * @desc Inseri um Cupom no banco
+ * @desc Inseri um novo cupom
  * @param {object} coupon
  * @return {Promise}
  */
-const create = (coupon) => {
-
-  return new Promise((resolve, reject) => {
-
-    // Salva Cupom no Banco
-    Coupon.query()
-      .insert(coupon)
-      .then((coupon) => resolve(coupon));
-  });
-};
+const create = (coupon) => Coupon.query().insert(coupon);
 
 /**
- * @desc Agrupa Cupons por Estado
+ * @desc Lista cupons
+ * @return {Promise}
+ */
+const list = () => Coupon.query();
+
+/**
+ * @desc Retorna cupom
+ * @param {number} id
+ * @return {Promise}
+ */
+const find = (id) => Coupon.query().findById(id);
+
+/**
+ * @desc Agrupa cupons por estado
  * @param {Date} date
  * @return {Promise}
  */
-const group = (date) => {
-  return new Promise((resolve, reject) => {
-
-    date = date || '2000-01-01';
-
-    Coupon.query()
-      .select('status')
-      .count('status')
-      .groupBy('status')
-      .then((coupons) => resolve(coupons));
-  });
-};
+const group = (date) => Coupon.query()
+  .select('status')
+  .count('status')
+  .groupBy('status');
 
 /**
  * @desc Atualiza cupom
- * @param {id} id
+ * @param {number} id
  * @param {object} coupon
  * @return {Promise}
  */
-const update = (id, coupon) => {
-  return new Promise((resolve, reject) => {
+const update = (id, coupon) => Coupon.query().patchAndFetchById(id, coupon);
 
-    Coupon.query()
-      .patchAndFetchById(id, coupon)
-      .then((coupon) => resolve(coupon));
-  });
-};
-
-const remove = (id) => {
-
-  return new Promise((resolve, reject) => {
-
-    Coupon.query()
-      .delete()
-      .where('id', '=', id)
-      .then((coupon) => resolve(coupon));
-  });
-};
+/**
+ * @desc Deleta registro do cupom
+ * @param {number} id
+ * @return {Promise}
+ */
+const remove = () => Coupon.query().deleteById(id);
 
 module.exports = {
-  list,
   create,
+  list,
+  find,
   group,
   update,
   remove

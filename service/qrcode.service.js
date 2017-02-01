@@ -1,4 +1,4 @@
-// Modelo da Cupom
+// Modelo da QRCode
 const QRCode = require('../model/QRCode');
 
 /**
@@ -6,34 +6,30 @@ const QRCode = require('../model/QRCode');
  * @param {object} qrcode
  * @return {Promise}
  */
-const create = (qrcode) => {
+const create = (coupon) => QRCode.query().insert(coupon);
 
-  return new Promise((resolve, reject) => {
+/**
+ * @desc Lista qrcodes
+ * @return {Promise}
+ */
+const list = () => QRCode.query();
 
-    // Salva QRCode no Banco
-    QRCode.query()
-      .insert(qrcode)
-      .then((qrcode) => resolve(qrcode));
-  });
-};
+/**
+ * @desc Lista qrcodes em banco
+ * @return {Promise}
+ */
+const find = (id) => QRCode.query().findById(id);
+
 
 /**
  * @desc Agrupa QRCodes por Estado
  * @param {Date} date
  * @return {Promise}
  */
-const group = (date) => {
-  return new Promise((resolve, reject) => {
-
-    date = date || '2000-01-01';
-
-    QRCode.query()
-      .select('status')
-      .count('status')
-      .groupBy('status')
-      .then((qrcodes) => resolve(qrcodes));
-  });
-};
+const group = (date) => QRCode.query()
+  .select('status')
+  .count('status')
+  .groupBy('status')
 
 /**
  * @desc Atualiza cupom
@@ -41,27 +37,17 @@ const group = (date) => {
  * @param {object} coupon
  * @return {Promise}
  */
-const update = (id, qrcode) => {
-  return new Promise((resolve, reject) => {
+const update = (id, qrcode) => QRCode.query().patchAndFetchById(id, qrcode);
 
-    QRCode.query()
-      .patchAndFetchById(id, qrcode)
-      .then((qrcode) => resolve(qrcode));
-  });
-};
-
-const remove = (id) => {
-
-  return new Promise((resolve, reject) => {
-
-    QRCode.query()
-      .delete()
-      .where('id', '=', id)
-      .then((qrcode) => resolve(qrcode));
-  });
-};
+/**
+ * @desc Deleta registro do qrcode
+ * @param {number} id
+ * @return {Promise}
+ */
+const remove = (id) => QRCode.query().deleteById(id);
 
 module.exports = {
+  list,
   create,
   group,
   update,
