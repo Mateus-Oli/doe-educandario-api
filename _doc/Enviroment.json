@@ -1,0 +1,34 @@
+{
+  "id": "dc45ecf5-ad55-7b33-2826-2bee42e6f464",
+  "name": "Cupom API",
+  "values": [
+    {
+      "key": "API",
+      "value": "http://localhost:8008",
+      "type": "text",
+      "enabled": true
+    },
+    {
+      "key": "ADMIN",
+      "value": "{{API}}/admin",
+      "type": "text",
+      "enabled": true
+    },
+    {
+      "key": "token",
+      "type": "text",
+      "value": "$2a$10$ZGHNKtk6ilvYke5ZSCieKelnwQfjPWj95JwDEGsusE0EWJGtRvv7q",
+      "enabled": true
+    },
+    {
+      "key": "user",
+      "type": "text",
+      "value": "{\"id\":1,\"email\":\"mateus.oli.car@gmail.com\",\"name\":\"admin\",\"created_at\":null,\"updated_at\":null}",
+      "enabled": true
+    }
+  ],
+  "timestamp": 1485910674689,
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2017-02-01T01:00:57.942Z",
+  "_postman_exported_using": "Postman/4.9.2"
+}
