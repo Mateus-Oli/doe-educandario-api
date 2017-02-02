@@ -1,5 +1,5 @@
 // Encriptador
-const bcrypt = require('bcrypt-nodejs-as-promised');
+const bcrypt = require('../override/bcrypt');
 
 // Tempo de expiração do token de segurança
 const {EXPIRATION} = require('../config');
@@ -47,7 +47,7 @@ const resetPassword = (username) => User
     if(!user) throw 'invalid username';
 
     user.password = Math
-      .round(Math.random()*1000000000)
+      .round(Math.random() * 1000000000)
       .toString();
 
     return user;
@@ -83,23 +83,23 @@ const generateToken = (user) => bcrypt
  * @param {string} token Token de Conexão
  * @return {string[]}
  */
-const logOut = (token) => new Promise((resolve) => {
+const logOut = (token) => {
 
   // Remove Token da lista de tokens aceitos
-  resolve(tokens.splice(tokens.indexOf(token), 1));
-});
+  return Promise.resolve(tokens.splice(tokens.indexOf(token), 1));
+};
 
 /**
  * @desc Verifica validade do token enviado
  * @param {string} token
  * @return {bool}
  */
-const checkToken = (token) => new Promise((resolve, reject) => {
+const checkToken = (token) => {
 
   // Verica se token existe em lista de tokens
-  if(tokens.indexOf(token) >= 0) return resolve();
-  return reject('invalid token');
-});
+  if(tokens.indexOf(token) >= 0) return Promise.resolve();
+  return Promise.reject('invalid token');
+};
 
 module.exports = {
   validate,

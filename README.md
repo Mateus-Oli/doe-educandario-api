@@ -3,9 +3,8 @@
 ## Objetivo
   Cadastra cupons fiscais e qrcodes enviados por um [aplicativo mobile](https://github.com/EducandarioBezerradeMenezes/Aplicativo_Cupom_Client) e insere estes cupons no site da receita, tambem alimenta um site cliente que administra as inserções no site da receita.
 
-
 ## Rotas
-  As rotas deste servidor estão documentadas dentro de `_doc/API.json` para sua visualização e teste basta importar o arquivo dentro de um [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop).
+  As rotas deste servidor estão documentadas dentro de [`_doc/API.json`](./_doc/API.json) para sua visualização e teste basta importar o arquivo dentro de um [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop).
 
 ## Como Utilizar
 
@@ -14,12 +13,12 @@
   2. Instale [Git](https://git-scm.com/downloads);
 
 ### Instalação
-  1. Clone este projeto: `git clone https://github.com/Mateus-Oli/true-bot.git`;
+  1. Clone este projeto: `git clone https://github.com/Mateus-Oli/doe-educandario-api`;
   2. Instale suas dependencias: `npm install`;
-  3. Ou instale apenas as dependencias de produção com: `npm install --production`
+  3. Ou instale apenas as dependencias de produção com: `npm install --production`;
 
 ### Configurações
-  1. Altere o que necessario relacionado as configurações do projeto no arquivo [`config`](./config.js);
+  1. Altere o que necessario relacionado as configurações do projeto no arquivo [`./config.js`](./config.js);
 
 ### Ambiente
   1. Rode os comandos a seguir seguidos de `production` para inicializar em módo de produção;

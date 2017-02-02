@@ -13,7 +13,7 @@ const info = (request) => {
     method: request.method,
     agent: request.headers['user-agent'],
     host: request.headers.host,
-    url: request.url,
+    url: request.url.replace(/&password=.*/, ''),
     body: JSON.stringify(request.body)
   };
 };

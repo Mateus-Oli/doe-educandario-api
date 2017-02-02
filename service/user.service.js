@@ -1,5 +1,5 @@
 // Encriptador
-const bcrypt = require('bcrypt-nodejs-as-promised');
+const bcrypt = require('../override/bcrypt');
 
 // Modelo da User
 const User = require('../model/User');
@@ -24,10 +24,7 @@ const create = (user) => bcrypt
  */
 const update = (id, user) => bcrypt
   .hash(user.password, 10)
-  .then((password) => {
-    user.password = password;
-    return user;
-  }).then(User.query().insert);
+  .then((password) => User.query().updateAndFetchById(id, {password}));
 
 /**
  * @desc Remove Usuario

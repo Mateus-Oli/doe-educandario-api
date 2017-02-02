@@ -1,24 +1,29 @@
 {
-  "name": "cupom-api",
+  "name": "doe-educandario-api",
   "version": "0.1.5",
-  "description": "API de gerenciamento do aplicativo DOE Educandario",
+  "description": "API de cadastro de cupons fiscais no site da receita federal",
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
     "drop": "node migration/drop",
     "migration": "node migration",
     "seed": "node migration/seed",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "test": "node override/bcrypt"
   },
+  "pre-commit": [
+    "lint"
+  ],
   "keywords": [
-    "BOT",
-    "Phantom",
-    "Cupom"
+    "bot",
+    "cupom-fiscal",
+    "educandario",
+    "receita-federal"
   ],
   "author": "Mateus <mateus.oli.car@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "bcrypt-nodejs-as-promised": "^1.0.4",
+    "bcryptjs": "^2.4.0",
     "body-parser": "^1.16.0",
     "express": "^4.14.0",
     "express-ws": "^2.0.0",
@@ -32,6 +37,7 @@
   },
   "devDependencies": {
     "chromedriver": "^2.27.2",
-    "eslint": "^3.14.1"
+    "eslint": "^3.14.1",
+    "pre-commit": "^1.2.2"
   }
 }

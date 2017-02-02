@@ -23,9 +23,9 @@ const recoverPassword = (user) => {
     };
 
     // Envia Email
-    mailer.sendMail(options, (err, info) => {
+    mailer.sendMail(options, (err) => {
       if(err) return reject(err);
-      return resolve(info);
+      return resolve(user);
     });
   });
 };

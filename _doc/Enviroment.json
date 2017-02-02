@@ -14,18 +14,6 @@
       "type": "text",
       "enabled": true
     },
-    {
-      "key": "token",
-      "type": "text",
-      "value": "$2a$10$ZGHNKtk6ilvYke5ZSCieKelnwQfjPWj95JwDEGsusE0EWJGtRvv7q",
-      "enabled": true
-    },
-    {
-      "key": "user",
-      "type": "text",
-      "value": "{\"id\":1,\"email\":\"mateus.oli.car@gmail.com\",\"name\":\"admin\",\"created_at\":null,\"updated_at\":null}",
-      "enabled": true
-    }
   ],
   "timestamp": 1485910674689,
   "_postman_variable_scope": "environment",

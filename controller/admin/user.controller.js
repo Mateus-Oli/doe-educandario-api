@@ -20,11 +20,11 @@ router.route('/password')
 
     // Usuario a trocar de senha
     const {id} = JSON.parse(req.headers.user);
-    const {body} = req.body;
+    const body = req.body;
 
     userService
       .update(id, body)
-      .then(() => res.json('OK'))
+      .then(() => res.json('OK')).catch((err) => console.log(err))
       .catch((err) => res.status(500).send(err));
   });
 
