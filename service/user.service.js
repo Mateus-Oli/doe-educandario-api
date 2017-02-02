@@ -14,7 +14,7 @@ const create = (user) => bcrypt
   .then((password) => {
     user.password = password;
     return user;
-  }).then(User.query().insert);
+  }).then((user) => User.query().insert(user));
 
 /**
  * @desc Atualiza usuario

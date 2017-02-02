@@ -33,7 +33,7 @@ const adminCtrl = [
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.all('*',(req, res, next) => {
+app.all('*', (req, res, next) => {
 
   // Acrescenta Cabeçalhos necessarios
   res.header('Access-Control-Allow-Origin', '*');

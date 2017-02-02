@@ -8,5 +8,5 @@ const createUser = userService.create({
 
 Promise.all([
   createUser,
-]).then(() => process.exit(0))
+]).then(() => process.exit(0)).catch((err) => console.log(err))
   .catch((err) => process.exit(err));

@@ -71,7 +71,7 @@ const toRegister = (driver) => {
  * @return {Promise}
  */
 const captcha = (driver) => driver.findElement(By.xpath('//*[@id="captchaNFP"]'))
-  .then(driver.takeScreenshot) /* Foto do Captcha */
+  .then(() => driver.takeScreenshot()) /* Foto do Captcha */
   .then((captcha) => {return {driver, captcha};})/* Imagem do Captcha */
   .catch(() => driver); /* Não Exite Captcha */
 
@@ -109,7 +109,7 @@ const save = (driver) => driver
   .then(driver.findElement(By.xpath('//*[@id="lblErroMaster"]')).getText())
   .then((innerHTML) => innerHTML) /* Erro com DIV */
   .then(driver.findElement(By.xpath('/html/body/div[3]/div[11]/div/button/span')).click())
-  .catch(  driver.findElement(By.xpath('//*[@id="lblErro"]')).getText())
+  .catch(driver.findElement(By.xpath('//*[@id="lblErro"]')).getText())
   .catch(driver.findElement(By.xpath('//*[@id="lblErro"]')).getText())
   .then((innerHTML) => innerHTML) /* Erro sem DIV */
   .catch(() => driver)            /* Sucesso no Cadastro */
@@ -131,7 +131,7 @@ const registerCoupon = (driver, coupon) => driver
     driver.findElement(By.xpath('//*[@id="divtxtDtNota"]/input')).sendKeys(coupon.date.format('dd/MM/yyyy')); /* DATA    */
     driver.findElement(By.xpath('//*[@id="divtxtNrNota"]/input')).sendKeys(coupon.coo);                       /* COO     */
     driver.findElement(By.xpath('//*[@id="divtxtVlNota"]/input')).sendKeys(coupon.total);                     /* TOTAL   */
-    driver.findElement(By.xpath('//*[@id="divCaptcha"]/input')).sendKeys(coupon.captcha).catch(() => {});  /* CAPTCHA */
+    driver.findElement(By.xpath('//*[@id="divCaptcha"]/input')).sendKeys(coupon.captcha).catch(() => {});     /* CAPTCHA */
 
     // Salva Cupom
     return save(driver).then(() => coupon);

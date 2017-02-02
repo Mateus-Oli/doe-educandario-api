@@ -24,7 +24,12 @@ router.route('/coupon')
       const {driver, captcha}  = result;
 
       // Resolve Captcha
-      res.send(captcha);
+      const image = new Buffer(captcha, 'base64');
+      res.writeHead(200, {
+        'Content-Type': 'image/png',
+        'Content-Lenggth': image.length
+      });
+      res.end(image);
       return driver;
 
     }).catch((driver) => driver) /* Captcha Não Existe */
@@ -39,6 +44,6 @@ router.route('/coupon')
 
           // Falha em Captcha ou Cadastro
           return err;
-        })))));
+        }))).then(() => Navigator.closeBrowser(driver))));
 
 module.exports = router;
