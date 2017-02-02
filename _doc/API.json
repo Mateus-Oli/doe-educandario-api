@@ -184,7 +184,7 @@
 									"",
 									"// Armazena Usuario Logado",
 									"delete body.token;",
-									"postman.setEnvironmentVariable(\"user\", JSON.stringify(body));"
+									"postman.setEnvironmentVariable(\"user\", JSON.stringify(body.user));"
 								]
 							}
 						}
