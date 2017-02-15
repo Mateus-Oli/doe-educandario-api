@@ -31,7 +31,7 @@ const DRIVER = PRODUCTION
 // Informações de Conexão com banco
 let connection;
 if(PRODUCTION) connection = {
-  host: '45.55.197.218',
+  host: 'localhost',
   user: 'postgres',
   password: 'mateus123mudar',
   database: 'ebm_notas'
