@@ -3,20 +3,50 @@
   "name": "Cupom API",
   "values": [
     {
-      "key": "API",
-      "value": "http://localhost:8008",
-      "type": "text",
-      "enabled": true
+      "enabled": true,
+      "key": "LOCAL",
+      "value": "127.0.0.1",
+      "type": "text"
     },
     {
+      "enabled": true,
+      "key": "PROD",
+      "value": "45.55.197.218",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "PORT",
+      "value": "8008",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "API",
+      "value": "http://{{LOCAL}}:{{PORT}}",
+      "type": "text"
+    },
+    {
+      "enabled": true,
       "key": "ADMIN",
       "value": "{{API}}/admin",
-      "type": "text",
-      "enabled": true
+      "type": "text"
     },
+    {
+      "enabled": true,
+      "key": "token",
+      "value": "$2a$10$umZqDIu.cehK.FCAaYOqVOP.GMVI5IfUiy1VPWsJvJaMvkE2Iqu06",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "user",
+      "value": "{\"id\":1,\"email\":\"mateus.oli.car@gmail.com\",\"name\":\"admin\",\"created_at\":\"2017-02-18T00:15:55.186Z\",\"updated_at\":\"2017-02-18T00:15:55.186Z\"}",
+      "type": "text"
+    }
   ],
-  "timestamp": 1485910674689,
+  "timestamp": 1487536953279,
   "_postman_variable_scope": "environment",
-  "_postman_exported_at": "2017-02-01T01:00:57.942Z",
-  "_postman_exported_using": "Postman/4.9.2"
+  "_postman_exported_at": "2017-02-19T20:50:24.916Z",
+  "_postman_exported_using": "Postman/4.10.2"
 }

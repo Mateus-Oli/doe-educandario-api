@@ -90,56 +90,6 @@
 			"description": "Requisições Relacionadas ao Cliente Administrador",
 			"item": [
 				{
-					"name": "QRCode BOT",
-					"request": {
-						"url": "{{ADMIN}}/qrcode",
-						"method": "GET",
-						"header": [
-							{
-								"key": "token",
-								"value": "{{token}}",
-								"description": ""
-							},
-							{
-								"key": "user",
-								"value": "{{user}}",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": "Inicializa BOT para cadastro de qrcodes e retorna imagem do captcha"
-					},
-					"response": []
-				},
-				{
-					"name": "Coupon BOT",
-					"request": {
-						"url": "{{ADMIN}}/coupon",
-						"method": "GET",
-						"header": [
-							{
-								"key": "token",
-								"value": "{{token}}",
-								"description": ""
-							},
-							{
-								"key": "user",
-								"value": "{{user}}",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": "Inicializa BOT para cadastro de cupons e retorna imagem do captcha"
-					},
-					"response": []
-				},
-				{
 					"name": "Request",
 					"request": {
 						"url": "{{ADMIN}}/request",
@@ -161,6 +111,180 @@
 							"raw": ""
 						},
 						"description": "Mostra Requisições Armazenadas"
+					},
+					"response": []
+				},
+				{
+					"name": "Coupon",
+					"request": {
+						"url": "{{ADMIN}}/coupon",
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"description": ""
+							},
+							{
+								"key": "user",
+								"value": "{{user}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Mostra Requisições Armazenadas"
+					},
+					"response": []
+				},
+				{
+					"name": "QRCode",
+					"request": {
+						"url": "{{ADMIN}}/qrcode",
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"description": ""
+							},
+							{
+								"key": "user",
+								"value": "{{user}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Mostra Requisições Armazenadas"
+					},
+					"response": []
+				},
+				{
+					"name": "Coupon BOT",
+					"request": {
+						"url": "{{ADMIN}}/coupon",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"description": ""
+							},
+							{
+								"key": "user",
+								"value": "{{user}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Inicializa BOT para cadastro de cupons e retorna imagem do captcha"
+					},
+					"response": []
+				},
+				{
+					"name": "QRCode BOT",
+					"request": {
+						"url": "{{ADMIN}}/qrcode",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"description": ""
+							},
+							{
+								"key": "user",
+								"value": "{{user}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Inicializa BOT para cadastro de qrcodes e retorna imagem do captcha"
+					},
+					"response": []
+				},
+				{
+					"name": "Coupon CAPTCHA",
+					"request": {
+						"url": "{{ADMIN}}/coupon",
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"description": ""
+							},
+							{
+								"key": "user",
+								"value": "{{user}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "captcha",
+									"value": "",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": "Inicializa BOT para cadastro de cupons e retorna imagem do captcha"
+					},
+					"response": []
+				},
+				{
+					"name": "QRCode CAPTCHA",
+					"request": {
+						"url": "{{ADMIN}}/qrcode",
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"description": ""
+							},
+							{
+								"key": "user",
+								"value": "{{user}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "captcha",
+									"value": "",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": "Inicializa BOT para cadastro de cupons e retorna imagem do captcha"
 					},
 					"response": []
 				}
@@ -227,6 +351,33 @@
 					"response": []
 				},
 				{
+					"name": "Recover Password",
+					"request": {
+						"url": "{{API}}/reset",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "admin",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": "Recupera Senha do Usuario Informado."
+					},
+					"response": []
+				},
+				{
 					"name": "Change Password",
 					"request": {
 						"url": "{{ADMIN}}/password",
@@ -260,33 +411,6 @@
 							]
 						},
 						"description": "Altera senha do Usuario Logado"
-					},
-					"response": []
-				},
-				{
-					"name": "Recover Password",
-					"request": {
-						"url": "{{API}}/reset",
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/x-www-form-urlencoded",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "email",
-									"value": "admin",
-									"type": "text",
-									"enabled": true
-								}
-							]
-						},
-						"description": "Recupera Senha do Usuario Informado."
 					},
 					"response": []
 				}
