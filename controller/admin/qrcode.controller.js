@@ -43,7 +43,7 @@ router.route('/qrcode')
           const {id} = JSON.parse(req.headers.user);
 
           // Usuario Enviou a Resposta
-          event.on(`${id}qrcode`, (captcha) => resolve({ driver, captcha }));
+          event.once(`${id}qrcode`, (captcha) => resolve({ driver, captcha }));
         });
       })
       .catch(({ driver, timeout }) => {

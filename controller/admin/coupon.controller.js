@@ -43,7 +43,7 @@ router.route('/coupon')
           const {id} = JSON.parse(req.headers.user);
 
           // Usuario Enviou a Resposta
-          event.on(`${id}coupon`, (captcha) => resolve({ driver, captcha }));
+          event.once(`${id}coupon`, (captcha) => resolve({ driver, captcha }));
         });
       })
       .catch(({ driver, timeout }) => {
