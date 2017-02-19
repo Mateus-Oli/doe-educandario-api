@@ -10,13 +10,13 @@ router.route('/request')
   .get((req, res) => requestService
     .list()
     .then((request) => res.json(request))
-    .catch((err) => res.status(404).send(err)));
+    .catch((err) => res.status(500).send(err)));
 
 router.route('/request/:id')
   .get((req, res) => requestService
     .find(req.params.id)
     .then((request) => res.json(request))
-    .catch((err) => res.status(500).send(err)))
+    .catch((err) => res.status(404).send(err)))
 
   .delete((req, res) => requestService
     .remove(req.params.id)

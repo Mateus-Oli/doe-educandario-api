@@ -66,5 +66,9 @@ loginCtrl.forEach((ctrl) => app.use(ctrl));
 // Rotas do Admin
 adminCtrl.forEach((ctrl) => app.use('/admin', ctrl));
 
+app.all('*', (req, res) => {
+  res.status(404).send('not found');
+});
+
 // Sobe Aplicação
 app.listen(PORT, () => console.log(`listening on port ${PORT}`));

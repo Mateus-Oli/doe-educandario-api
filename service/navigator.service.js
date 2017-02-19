@@ -10,7 +10,7 @@ const Key   = WebDriver.Key;
 require('../override/date.format');
 
 // Configurações para Site
-const {DRIVER, SITE} = require('../config');
+const { DRIVER, SITE } = require('../config');
 
 /**
  * @desc Abre uma instancia de Navegador
@@ -19,23 +19,25 @@ const {DRIVER, SITE} = require('../config');
 const createBrowser = () => {
 
   const driver = new WebDriver.Builder().forBrowser(DRIVER).build();
-  return driver.get(`${SITE.page}/login.aspx`)
-    .then(() => driver);
+  return driver.get(`${ SITE.page }/login.aspx`)
+    .then(() => ({ driver }));
 };
 
 /**
  * @desc Fecha instancia do Navegador
- * @param {object} driver
+ * @param {Object} option
  * @return {Promise}
  */
-const closeBrowser = (driver) => driver.quit();
+const closeBrowser = ({ driver }) => driver.quit();
 
 /**
  * @desc Redireciona navegador para tela de cadastro
- * @param {object} driver
+ * @param {Object} option
  * @return {Promise}
  */
-const toRegister = (driver) => {
+const toRegister = (option) => {
+
+  const { driver } = option;
 
   // Tela de Login
   driver.wait(until.elementLocated(By.xpath('//*[@id="UserName"]')));
@@ -62,68 +64,93 @@ const toRegister = (driver) => {
   return driver
     .wait(until.elementLocated(By.xpath('//*[@id="lblPerguntaMaster"]')))
     .sendKeys(Key.ESCAPE)
-    .then(() => driver);
+    .then(() => option);
 };
 
 /**
  * @desc Screenshot do Captcha
- * @param {object} driver
+ * @param {Object} option
  * @return {Promise}
  */
-const captcha = (driver) => driver.findElement(By.xpath('//*[@id="captchaNFP"]'))
+const captcha = ({ driver }) => driver.findElement(By.xpath('//*[@id="captchaNFP"]'))
   .then(() => driver.takeScreenshot()) /* Foto do Captcha */
-  .then((captcha) => {return {driver, captcha};})/* Imagem do Captcha */
-  .catch(() => driver); /* Não Exite Captcha */
+  .then((captcha) =>  ({ driver, captcha }))/* Imagem do Captcha */
+  .catch(() => ({ driver })); /* Não Exite Captcha */
 
 /**
  * @desc Limpa campos de cadastro
- * @param {object} driver
+ * @param {Object} option
  * @return {Promise}
  */
-const clearFields = (driver) => {
+const clearFields = (option) => {
+
+  const { driver } = option;
 
   // Limpa Captcha se Existe
   driver.findElement(By.xpath('//*[@id="divCaptcha"]/input')).clear().catch(() => {});
 
   // Limpa Cupom
   return driver.findElement(By.xpath('//*[@id="divCNPJEstabelecimento"]/input')).clear()     /* CNPJ  */
-    .then(driver.findElement(By.xpath('//*[@id="divtxtDtNota"]/input')).clear())             /* DATA  */
-    .then(driver.findElement(By.xpath('//*[@id="divtxtNrNota"]/input')).clear())             /* COO   */
-    .then(driver.findElement(By.xpath('//*[@id="divtxtVlNota"]/input')).clear())             /* TOTAL */
-    .then(driver.findElement(By.xpath('//*[@id="divtxtVlNota"]/input')).sendKeys(Key.BACK_SPACE))
-    .then(() => driver) /* CUPOM LIMPO */
+    .then(() => {
+      driver.findElement(By.xpath('//*[@id="divtxtDtNota"]/input')).clear();                 /* DATA  */
+      driver.findElement(By.xpath('//*[@id="divtxtNrNota"]/input')).clear();                 /* COO   */
+      driver.findElement(By.xpath('//*[@id="divtxtVlNota"]/input')).clear();                 /* TOTAL */
+      driver.findElement(By.xpath('//*[@id="divtxtVlNota"]/input')).sendKeys(Key.BACK_SPACE);
 
+      return option;
+    })
     // Limpa Chave
-    .catch(driver.findElement(By.xpath('//*[@id="divDocComChave"]/fieldset/input')).clear()) /* VALOR */
-    .then(driver.findElement(By.xpath('//*[@id="divDocComChave"]/fieldset/input')).sendKeys(Key.BACK_SPACE))
-    .then(() => driver); /* CHAVE LIMPA */
+    .catch(() => {
+      driver.findElement(By.xpath('//*[@id="divDocComChave"]/fieldset/input')).clear();      /* VALOR */
+      driver.findElement(By.xpath('//*[@id="divDocComChave"]/fieldset/input')).sendKeys(Key.BACK_SPACE);
+
+      return option;
+    });
 };
 
 /**
  * @desc Salva Cupom/Chave
- * @param {object} driver
+ * @param {Object} option
  * @return {Promise}
  */
-const save = (driver) => driver
-  .findElement(By.xpath('//*[@id="btnSalvarNota"]')).sendKeys(Key.ENTER)
-  .then(driver.findElement(By.xpath('//*[@id="lblErroMaster"]')).getText())
-  .then((innerHTML) => innerHTML) /* Erro com DIV */
-  .then(driver.findElement(By.xpath('/html/body/div[3]/div[11]/div/button/span')).click())
-  .catch(driver.findElement(By.xpath('//*[@id="lblErro"]')).getText())
-  .catch(driver.findElement(By.xpath('//*[@id="lblErro"]')).getText())
-  .then((innerHTML) => innerHTML) /* Erro sem DIV */
-  .catch(() => driver)            /* Sucesso no Cadastro */
-  .then(clearFields(driver));     /* Limpa para Proximo Cadastro */
+const save = (option) => {
+
+  const { driver } = option;
+
+  return driver.findElement(By.xpath('//*[@id="btnSalvarNota"]')).sendKeys(Key.ENTER)
+  .then(() => driver.findElement( By.xpath('//*[@id="lblErroMaster"]')).getText())
+  .then((innerHTML) => {
+
+    option.err = innerHTML;
+    return option;
+  }) /* Erro com DIV */
+  .then(() => driver.findElement(By.xpath('/html/body/div[3]/div[11]/div/button/span')).click())
+  .catch(() => driver.findElement(By.xpath('//*[@id="lblErro"]')).getText())
+  .catch(() => driver.findElement(By.xpath('//*[@id="lblErro"]')).getText())
+  .then((innerHTML) => {
+
+    option.err = innerHTML;
+    return option;
+  }) /* Erro sem DIV */
+  .catch(() => option)              /* Sucesso no Cadastro */
+  .then(() => clearFields(option))  /* Limpa para Proximo Cadastro */
+  .then(() => {
+    if(option.err) return Promise.reject(option);
+    return Promise.resolve(option);
+  });
+};
 
 /**
- * @desc Inseri dados em formulario de Cupom
- * @param {object} driver
- * @param {object} coupon
+ * @desc Insere dados em formulario de Cupom
+ * @param {object} option
  * @return {Promise}
  */
-const registerCoupon = (driver, coupon) => driver
-  .wait(until.elementLocated(By.xpath('//*[@id="divCNPJEstabelecimento"]/input')))
-  .then(driver.wait(until.elementLocated(By.xpath('Weird')), 100).catch(() => {}))
+const registerCoupon = (option) => {
+
+  const { driver, coupon } = option;
+
+  return driver.wait(until.elementLocated(By.xpath('//*[@id="divCNPJEstabelecimento"]/input')))
+  .then(() => driver.wait(until.elementLocated(By.xpath('Weird')), 100).catch(() => {}))
   .then(() => {
 
     // Preenche Formulario
@@ -134,27 +161,31 @@ const registerCoupon = (driver, coupon) => driver
     driver.findElement(By.xpath('//*[@id="divCaptcha"]/input')).sendKeys(coupon.captcha).catch(() => {});     /* CAPTCHA */
 
     // Salva Cupom
-    return save(driver).then(() => coupon);
+    return save(option);
   });
+};
 
 /**
-* @desc Inseri dados em formulario de Chave
-* @param {object} driver
-* @param {object} qrcode
+* @desc Insere dados em formulario de Chave
+* @param {Object} option
 * @return {Promise}
 */
-const registerQRCode = (driver, qrcode) => driver
-  .wait(until.elementLocated(By.xpath('//*[@id="divCNPJEstabelecimento"]/input')))
-  .then(driver.wait(until.elementLocated(By.xpath('Weird')), 100).catch(() => {}))
+const registerQRCode = (option) => {
+
+  const { driver, qrcode } = option;
+
+  return driver.wait(until.elementLocated(By.xpath('//*[@id="divCNPJEstabelecimento"]/input')))
+  .then(() => driver.wait(until.elementLocated(By.xpath('Weird')), 100).catch(() => {}))
   .then(() => {
 
     // Preenche Formulario
-    driver.findElement(By.xpath('//*[@id="divCNPJEstabelecimento"]/input')).sendKeys(qrcode.value);          /* VALOR   */
+    driver.findElement(By.xpath('//*[@id="divCNPJEstabelecimento"]/input')).sendKeys(qrcode.value);       /* VALOR   */
     driver.findElement(By.xpath('//*[@id="divCaptcha"]/input')).sendKeys(qrcode.captcha).catch(() => {}); /* CAPTCHA */
 
     // Salva Cupom
-    return save(driver).then(() => qrcode);
+    return save(option);
   });
+};
 
 module.exports = {
   createBrowser,

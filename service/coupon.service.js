@@ -9,10 +9,17 @@ const Coupon = require('../model/Coupon');
 const create = (coupon) => Coupon.query().insert(coupon);
 
 /**
- * @desc Lista cupons
+ * @desc Lista cupons sem erro de cadstro
  * @return {Promise}
  */
-const list = () => Coupon.query();
+const list = () => Coupon.query().where('status', '!=', 'register err');
+
+
+/**
+ * @desc Lista todos os cupons
+ * @return {Promise}
+ */
+const listAll = () => Coupon.query();
 
 /**
  * @desc Retorna cupom
@@ -49,6 +56,7 @@ const remove = (id) => Coupon.query().deleteById(id);
 module.exports = {
   create,
   list,
+  listAll,
   find,
   group,
   update,

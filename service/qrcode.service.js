@@ -9,10 +9,16 @@ const QRCode = require('../model/QRCode');
 const create = (coupon) => QRCode.query().insert(coupon);
 
 /**
- * @desc Lista qrcodes
+ * @desc Lista qrcodes sem erro de registro
  * @return {Promise}
  */
-const list = () => QRCode.query();
+const list = () => QRCode.query().where('status', '!=', 'register err');
+
+/**
+ * @desc Lista todos os qrcodes
+ * @return {Promise}
+ */
+const listAll = () => QRCode.query();
 
 /**
  * @desc Lista qrcodes em banco
@@ -48,6 +54,7 @@ const remove = (id) => QRCode.query().deleteById(id);
 module.exports = {
   create,
   list,
+  listAll,
   find,
   group,
   update,

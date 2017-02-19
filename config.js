@@ -17,8 +17,15 @@ const EMAIL = {
 // Porta alocada para aplicação
 const PORT = 8008;
 
+const SECOND = 1000;
+const MINUTE = (60) * SECOND;
+const HOUR   = (60) * MINUTE;
+
 // Tempo de Expiração do Token de Conexão
-const EXPIRATION = (2)*(60)*(60)*(1000);
+const EXPIRATION = (2) * HOUR;
+
+// Tempo para resolução de promessa
+const RESOLUTION = (30) * MINUTE;
 
 // Acesso a WebDrivers
 if(PRODUCTION)  process.env.Path += `;${__dirname}\\node_modules\\phantomjs-prebuilt\\lib\\phantom\\bin\\`;
@@ -31,7 +38,7 @@ const DRIVER = PRODUCTION
 // Informações de Conexão com banco
 let connection;
 if(PRODUCTION) connection = {
-  host: '45.55.197.218',
+  host: '127.0.0.1',
   user: 'postgres',
   password: 'mateus123mudar',
   database: 'ebm_notas'
@@ -59,6 +66,7 @@ const mailer = require('nodemailer')
 module.exports = {
   SITE,
   EXPIRATION,
+  RESOLUTION,
   DRIVER,
   PORT,
 
