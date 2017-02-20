@@ -174,15 +174,14 @@ const registerQRCode = (option) => {
 
   const { driver, qrcode } = option;
 
-  return driver.wait(until.elementLocated(By.xpath('//*[@id="divCNPJEstabelecimento"]/input')))
+  return driver.wait(until.elementLocated(By.xpath('//*[@id="divDocComChave"]/fieldset/input')))
   .then(() => driver.wait(until.elementLocated(By.xpath('Weird')), 100).catch(() => {}))
   .then(() => {
 
     // Preenche Formulario
-    driver.findElement(By.xpath('//*[@id="divCNPJEstabelecimento"]/input')).sendKeys(qrcode.value);       /* VALOR   */
+    driver.findElement(By.xpath('//*[@id="divDocComChave"]/fieldset/input')).sendKeys(qrcode.value);      /* VALOR   */
     driver.findElement(By.xpath('//*[@id="divCaptcha"]/input')).sendKeys(qrcode.captcha).catch(() => {}); /* CAPTCHA */
 
-    // Salva Cupom
     return save(option);
   });
 };

@@ -12,7 +12,7 @@ const create = (coupon) => Coupon.query().insert(coupon);
  * @desc Lista cupons sem erro de cadstro
  * @return {Promise}
  */
-const list = () => Coupon.query().where('status', '!=', 'register err');
+const list = () => Coupon.query().where('status', '!=', 'register err').where('status', '!=', 'registered');
 
 
 /**

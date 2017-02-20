@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "Cupom API",
-		"_postman_id": "95703835-8bed-fab2-1885-aef85410d319",
+		"_postman_id": "a1c01aba-09b8-817b-2708-9ca9c178a06f",
 		"description": "Requisições da API atualizada do projeto de cadastro de cupons fiscais.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -73,7 +73,7 @@
 							"urlencoded": [
 								{
 									"key": "value",
-									"value": "192873917239817239878686",
+									"value": "19287391723981723987868655555555555555555555",
 									"type": "text",
 									"enabled": true
 								}
@@ -135,7 +135,7 @@
 							"mode": "raw",
 							"raw": ""
 						},
-						"description": "Mostra Requisições Armazenadas"
+						"description": "Mostra Cupons Armazenadas"
 					},
 					"response": []
 				},
@@ -160,7 +160,7 @@
 							"mode": "raw",
 							"raw": ""
 						},
-						"description": "Mostra Requisições Armazenadas"
+						"description": "Mostra QRcode Armazenados"
 					},
 					"response": []
 				},
@@ -247,7 +247,7 @@
 								}
 							]
 						},
-						"description": "Inicializa BOT para cadastro de cupons e retorna imagem do captcha"
+						"description": "Envia captcha para cadastro de Cupom"
 					},
 					"response": []
 				},
@@ -284,7 +284,7 @@
 								}
 							]
 						},
-						"description": "Inicializa BOT para cadastro de cupons e retorna imagem do captcha"
+						"description": "Envia captcha para cadastro de QRCode"
 					},
 					"response": []
 				}

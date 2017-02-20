@@ -12,7 +12,7 @@ const create = (coupon) => QRCode.query().insert(coupon);
  * @desc Lista qrcodes sem erro de registro
  * @return {Promise}
  */
-const list = () => QRCode.query().where('status', '!=', 'register err');
+const list = () => QRCode.query().where('status', '!=', 'register err').where('status', '!=', 'registered');
 
 /**
  * @desc Lista todos os qrcodes
