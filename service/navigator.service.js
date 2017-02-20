@@ -173,7 +173,7 @@ const registerCoupon = (option) => {
 const registerQRCode = (option) => {
 
   const { driver, qrcode } = option;
-
+  console.log(qrcode);
   return driver.wait(until.elementLocated(By.xpath('//*[@id="divDocComChave"]/fieldset/input')))
   .then(() => driver.wait(until.elementLocated(By.xpath('Weird')), 100).catch(() => {}))
   .then(() => {
