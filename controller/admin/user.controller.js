@@ -24,7 +24,7 @@ router.route('/password')
 
     userService
       .update(id, body)
-      .then(() => res.json('OK')).catch((err) => console.log(err))
+      .then(() => res.json('OK'))
       .catch((err) => res.status(500).send(err));
   });
 

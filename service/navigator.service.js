@@ -45,9 +45,6 @@ const toRegister = (option) => {
   driver.findElement(By.xpath('//*[@id="Password"]')).sendKeys(SITE.password);
   driver.findElement(By.xpath('//*[@id="Login"]')).click();
 
-  //Espera a pagina principal
-  driver.wait(until.elementLocated(By.xpath('//*[@id="menuSuperior"]/ul/li[4]/a')));
-
   //Redireciona ate tela de entidade
   driver.get(`${SITE.page}/EntidadesFilantropicas/CadastroNotaEntidadeAviso.aspx`);
 
@@ -173,7 +170,6 @@ const registerCoupon = (option) => {
 const registerQRCode = (option) => {
 
   const { driver, qrcode } = option;
-  console.log(qrcode);
 
   driver.findElement(By.xpath('//*[@id="divDocComChave"]/fieldset/input')).clear();      /* VALOR */
   driver.findElement(By.xpath('//*[@id="divDocComChave"]/fieldset/input')).sendKeys(Key.BACK_SPACE);

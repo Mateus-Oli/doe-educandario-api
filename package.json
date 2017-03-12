@@ -8,8 +8,7 @@
     "drop": "node migration/drop",
     "migration": "node migration",
     "seed": "node migration/seed",
-    "start": "nodemon index.js",
-    "test": "node override/bcrypt"
+    "start": "nodemon index.js"
   },
   "pre-commit": [
     "lint"

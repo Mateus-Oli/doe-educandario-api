@@ -66,7 +66,6 @@ router.route('/qrcode')
             // Erro de Cadastro
 
             const status = err.match(/Captcha/g)? 'captcha err' : 'register err';
-            console.log(err);
             return qrcodeService.update(qrcode.id, {status})
               .then(() => ({ driver }));
           });
